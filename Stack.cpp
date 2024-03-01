@@ -30,3 +30,8 @@ template <typename T>
 bool Stack<T>::isEmpty() {
     return vsize_ == 0;
 }
+
+template <typename T>
+size_t Stack<T>::Size() const {
+    return vsize_;
+}

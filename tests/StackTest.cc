@@ -8,3 +8,9 @@ TEST(DefaultCtor, BasicAssertions) {
 
     ASSERT_TRUE(myStack.isEmpty());
 }
+
+TEST(Size, BasicAssertions) {
+    Stack<std::string> myStack;
+
+    ASSERT_TRUE(myStack.Size() == 0);
+}
