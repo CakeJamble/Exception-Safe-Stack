@@ -3,7 +3,7 @@
 2. Make `Stack` exception neutral. If exceptions are thrown, they are propagated through to the caller, who will deal with them with the benefit of context with regards to the template parameter `T`.
 
 ```cpp
-template <class T> class Stack {
+template <typename T> class Stack {
 public:
   Stack();
   ~Stack();
