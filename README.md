@@ -3,7 +3,7 @@
 2. Make `Stack` exception neutral. If exceptions are thrown, they are propagated through to the caller, who will deal with them with the benefit of context with regards to the template parameter `T`.
 
 ```cpp
-template <class T> class Stack {
+template <typename T> class Stack {
 public:
   Stack();
   ~Stack();
@@ -30,6 +30,6 @@ So, heeding the call, I created this repo to thoroughly document what I learned 
 1. Is using smart pointers cheating? This problem predates Modern C++, so I'm wondering if I am missing the point here. I'll try to focus on Exception Safety and use whatever I have to ensure strong guarantees wherever I can.
 
 # Reading Resources
-- Exception C++: 47 Engineering Puzzles, Programming Problems, and Solutions (Herb Sutter)
+- Exceptional C++: 47 Engineering Puzzles, Programming Problems, and Solutions (Herb Sutter)
 - Exception Handling: A False Sense of Security (Tom Cargill)
     - This article is actually a response to a 1993 article by David Reed, which you will find if you read this.
