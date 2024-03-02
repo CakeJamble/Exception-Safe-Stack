@@ -50,7 +50,7 @@ So, heeding the call, I created this repo to thoroughly document what I learned 
 Is it Exception Safe and Exception Neutral? Yes. I inadvertently simplified the challenge further than expected by implementing this as a linked list, and using smart pointers, but I believe I passed the minimum threshold for this challenge. I have some more thoughts detailed in the following subsections.
 
 ## Default Construction
-The default constructor doesn't actually allocate any memory, so we don't need to worry about an `std::bad_alloc` being thrown here. In fact, the default constructor for an `std::unique_ptr` is `noexcept`, so it will call `std::terminate`. 
+The default constructor doesn't actually allocate any memory, so we don't need to worry about an `std::bad_alloc` being thrown here. In fact, the default constructor for an `std::unique_ptr` is `noexcept`, so it will call `std::terminate` if an exception gets thrown here, somehow. 
 
 ## Copy Construction & Copy Assignment
 Smart pointers really did some heavy lifting here. I immediately reached for `std::unique_ptr` because of this note from cppreference:
