@@ -23,12 +23,12 @@ public:
   ~Stack();
   Stack(const Stack&);
   Stack& operator=(const Stack& rhs);
-  size_t Size() const;
+  size_t Size() const noexcept;
   void   Push(const T&);
   T      Pop();                 // if empty, throws exception
   void   Erase();
-  bool   isEmpty();
-  Node<T>& Peek();
+  bool   isEmpty() noexcept;
+  const Node<T>& Peek();        // if empty, throws exception
 private:
   std::unique_ptr<Node<T>> v_;  // ptr to a memory area big
   size_t vsize_;                // enough for 'vsize_' T's

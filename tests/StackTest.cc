@@ -29,9 +29,14 @@ TEST(SimplePop, BasicAssertions) {
 
     std::string s("Live fast, die young!");
     myStack.Push(s);
-    myStack.Pop();
+    std::string _ = myStack.Pop();
 
     ASSERT_TRUE(myStack.isEmpty());
+}
+
+TEST(PopException, BasicAssertions) {
+    Stack<std::string> myStack;
+    EXPECT_THROW(myStack.Pop(), std::runtime_error);
 }
 
 TEST(CpyAssgn, BasicAssertions) {

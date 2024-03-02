@@ -28,6 +28,8 @@ Stack<T>::~Stack(){}
  * Stack Operator= Override
  * Preconditions    : rhs is a valid Stack that is not this
  * Postconditions   : This will be a deep copy of the rhs parameter
+ *              If an exception is thrown when Erase() calls Pop(),
+ *              it is propogated up to the caller of operator=().
 */
 template <typename T>
 Stack<T>& Stack<T>::operator=(const Stack<T>& rhs) {
@@ -52,7 +54,10 @@ Stack<T>& Stack<T>::operator=(const Stack<T>& rhs) {
  * Postconditions   : Returns a raw ptr with no ownership of data at address
 */
 template <typename T>
-Node<T>& Stack<T>::Peek() {
+const Node<T>& Stack<T>::Peek() {
+    if(!v_) {
+        throw std::runtime_error("Empty Stack!!!");
+    }
     return v_.get();
 }
 
@@ -62,7 +67,7 @@ Node<T>& Stack<T>::Peek() {
  * Postconditions   : Returns true if vsize_ is 0, else false
 */
 template <typename T>
-bool Stack<T>::isEmpty() {
+bool Stack<T>::isEmpty() noexcept {
     return vsize_ == 0;
 }
 
@@ -72,7 +77,7 @@ bool Stack<T>::isEmpty() {
  * Postconditions   : Returns an int, the # of Nodes in the Stack
 */
 template <typename T>
-size_t Stack<T>::Size() const {
+size_t Stack<T>::Size() const noexcept {
     return vsize_;
 }
 
@@ -87,9 +92,9 @@ void Stack<T>::Push(const T& item) {
     auto newNode = std::make_unique<Node<T>>(item);
 
     if(v_) {
-        newNode->next = std::move(v_);  // Place at top of stack
+        newNode->next = std::move(v_);  // newNode->next assumes ownership of previously first node
     }
-    v_ = std::move(newNode);            // Return ownership to v_
+    v_ = std::move(newNode);            // Transfer ownership to v_
     ++vsize_;
 }
 
@@ -112,6 +117,13 @@ T Stack<T>::Pop() {
     return val;
 }
 
+/**
+ * Stack Erase
+ * Preconditions    : A non-empty stack
+ * Postconditions   : Results in an empty Stack,
+ *                      exceptions thrown in Pop are
+ *                      propogated up to the caller.
+*/
 template <typename T>
 void Stack<T>::Erase() {
     while(!isEmpty()) {
