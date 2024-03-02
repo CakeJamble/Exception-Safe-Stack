@@ -21,7 +21,7 @@ template <typename T> class Stack {
 public:
   Stack();
   ~Stack();
-  Stack(const Stack&);
+  Stack(const Stack& other);
   Stack& operator=(const Stack& rhs);
   size_t Size() const noexcept;
   void   Push(const T&);

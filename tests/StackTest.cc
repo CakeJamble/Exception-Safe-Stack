@@ -39,6 +39,16 @@ TEST(PopException, BasicAssertions) {
     EXPECT_THROW(myStack.Pop(), std::runtime_error);
 }
 
+TEST(CpyCtor, BasicAssertions) {
+    Stack<std::string> myStack;
+    std::string s("Nothing in this world is original.");
+    myStack.Push(s);
+
+    Stack<std::string> yourStack(myStack);
+
+    EXPECT_NE(&myStack, &yourStack);
+}
+
 TEST(CpyAssgn, BasicAssertions) {
     Stack<std::string> myStack;
     Stack<std::string> yourStack;

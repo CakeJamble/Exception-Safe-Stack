@@ -5,13 +5,13 @@
  * Preconditions:   N/A
  * Postconditions:  Creates a valid stack with the following member variables:
  *      v_      : Allocates memory on free store
- *      vsize_  : Size of space allocated
+ *      vsize_  : Size of total space (arbitrarily set to 10 for example)
  *      vused_  : # of T's actually in use
 */
 template <typename T>
 Stack<T>::Stack()
 :   v_(std::make_unique<Node<T>>()),
-    vsize_(0),
+    vsize_(10),
     vused_(0)
 {}
 
@@ -23,6 +23,25 @@ Stack<T>::Stack()
 template <typename T>
 Stack<T>::~Stack(){}
 
+/**
+ * Stack Copy Constructor
+ * Preconditions    : A valid Stack object passed into the fcn
+ * Postconditions   : A valid Stack object (deep copy)
+*/
+template <typename T>
+Stack<T>::Stack(const Stack<T>& other) 
+:   v_(std::make_unique<Node<T>>()),
+    vsize_(other.vsize_),
+    vused_(other.vused_)
+{
+    Node<T>* curr = other.v_.get();     // will not throw
+
+    for(int i = 0; i < other.Size(); ++i) {
+        const T elem = curr->data;
+        Push(elem);
+        curr = curr->next.get();
+    }
+}
 
 /**
  * Stack Operator= Override
@@ -68,7 +87,7 @@ const Node<T>& Stack<T>::Peek() {
 */
 template <typename T>
 bool Stack<T>::isEmpty() noexcept {
-    return vsize_ == 0;
+    return vused_ == 0;
 }
 
 /**
@@ -78,7 +97,7 @@ bool Stack<T>::isEmpty() noexcept {
 */
 template <typename T>
 size_t Stack<T>::Size() const noexcept {
-    return vsize_;
+    return vused_;
 }
 
 /**
@@ -94,8 +113,9 @@ void Stack<T>::Push(const T& item) {
     if(v_) {
         newNode->next = std::move(v_);  // newNode->next assumes ownership of previously first node
     }
+    assert(vused_ + 1 <= vsize_);
     v_ = std::move(newNode);            // Transfer ownership to v_
-    ++vsize_;
+    ++vused_;
 }
 
 /**
@@ -112,7 +132,7 @@ T Stack<T>::Pop() {
 
     T val = v_->data;
     v_ = std::move(v_->next);   // Ownership transferred
-    --vsize_;
+    --vused_;
 
     return val;
 }
