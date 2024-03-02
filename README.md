@@ -36,7 +36,7 @@ Here is a very basic, inefficient way to get it running ASAP ([source](http://go
 # My Motivations
 I am an undergraduate student studying Computer Science, so I learned about exception handling. It's not an overly difficult concept, that is, the fundamentals of exception handling are not difficult to read about, and then mimic to some extent.
 
-However, I felt that my education didn't properly inform me that exception handling wasn't the end all be all of writing good code. Before reading about Exception Safety in Herb Sutter's book (see [Reading Resources](#reading-resources)), I had never even heard of the different levels of Exception Safety. 
+However, I felt that my education didn't properly inform me that exception handling wasn't the end all be all of the topic. Before reading about Exception Safety in Herb Sutter's book (see [Reading Resources](#reading-resources)), I had never even heard of the different levels of Exception Safety. 
 
 So, heeding the call, I created this repo to thoroughly document what I learned about the concept.
 
