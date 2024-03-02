@@ -65,16 +65,16 @@ And you're right, but it's still Exception Safe and Exception Neutral. If an `st
 > "All that's left is raw memory, smoke, and ashes."
 
 ## Size
-C'mon, you know that size_t is an alias for an unsigned integral, right? Those aren't classes, so they don't have member functions that could throw. I decided to tack on `noexcept`, please inform me if I have some unearned hubris here.
+C'mon, you know that size_t is an alias for an unsigned integral, right? Those aren't classes, so they don't have member functions that could throw. I decided to tack on `noexcept`, please inform me if this hubris will lead to my downfall.
 
 ## Push & Pop
-Once again, smart pointers to the rescue. Studying them saved me a lot of time here. Had I opted for a solution with an array, I think I would have required more work with some assertions and dynamic allocation and moving of resources. 
+Once again, smart pointers to the rescue. Studying them saved me a lot of time here. Had I opted for a solution with an array and raw pointers, I would have spent way more time fiddling with assertions and dynamic allocation and moving of resources. 
 
 ## Retrospective & Key Takeaways
-My solution and the books solution are very different, and it highlights the importance of learning C++. It is an evolving language, and taking advantage of new mechanics can lead to cleaner code. Using `std::unique_ptr` eliminated most of the traps
+My solution and the book's solution are very different, and it highlights the importance of learning C++. It is an evolving language, and taking advantage of new mechanics can lead to cleaner, better code. Using `std::unique_ptr` eliminated most of the traps
 set by the author, and the few that remained are commonly taught as bad practice (seriously, don't throw exceptions in a destructor. You should always guarantee that you can deallocate dynamic allocations of memory).
 
-The repository probably wouldn't meet the minimum requirements of a robust testing environment. I'd change that, and I'd also try and rewrite this with a pImpl interface. If I ever come back to this, that will be the roadmap!
+The repository probably wouldn't meet the minimum requirements of a robust testing environment, but was never written to be production-level code. I'd change that, and I'd also try and rewrite this with a pImpl interface. If I ever come back to this, that will be the roadmap!
 
 # Reading Resources
 - Exceptional C++: 47 Engineering Puzzles, Programming Problems, and Solutions (Herb Sutter)
