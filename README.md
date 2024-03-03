@@ -77,7 +77,7 @@ set by the author, and the few that remained are commonly taught as bad practice
 The repository probably wouldn't meet the minimum requirements of a robust testing environment, but was never written to be production-level code. I'd change that, and I'd also try and rewrite this with a pImpl interface. If I ever come back to this, that will be the roadmap!
 
 # Revisiting with "More Modern" CMake (CMake 3.14)
-I decided to revisit this example much sooner than expected because of a great [video](https://www.youtube.com/watch?v=y7ndUhdQuU8) by Deniz Bahadir about CMake. I saw this little exercise as a great introduction to CMake, since previous commits in this only used a single, top-level `CMakeLists.txt`. And begrudgingly, because it is required to configure Google Tests. But it actually corrected some overlooked bugs!
+I decided to revisit this example much sooner than expected because of a great [video](https://www.youtube.com/watch?v=y7ndUhdQuU8) by Deniz Bahadir about CMake. I saw this little exercise as a great introduction to CMake, since previous commits in this only used a single, top-level `CMakeLists.txt`. And begrudgingly so, because it is required to configure Google Tests. But it actually corrected some overlooked bugs!
 
 ## Cleaner Project Structure
 Following the video, I created `library/`, `library/include`, and `library/src` directories (no this isn't out of date, I know `src/` is gone). The `CMakeLists.txt` file in `library/` propagates the targets up to the top-level `CMakeLists.txt`, and builds the project, so I can run tests and pat myself on the back.
