@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "../Stack.cpp"
+#include "Stack.cpp"
 #include <iostream>
 #include <string.h>
 
