@@ -76,9 +76,24 @@ set by the author, and the few that remained are commonly taught as bad practice
 
 The repository probably wouldn't meet the minimum requirements of a robust testing environment, but was never written to be production-level code. I'd change that, and I'd also try and rewrite this with a pImpl interface. If I ever come back to this, that will be the roadmap!
 
+# Revisiting with "More Modern" CMake (CMake 3.14)
+I decided to revisit this example much sooner than expected because of a great [video](https://www.youtube.com/watch?v=y7ndUhdQuU8) by Deniz Bahadir about CMake. I saw this little exercise as a great introduction to CMake, since previous commits in this only used a single, top-level `CMakeLists.txt`. And begrudgingly, because it is required to configure Google Tests. But it actually corrected some overlooked bugs!
+
+## Cleaner Project Structure
+Following the video, I created `library/`, `library/include`, and `library/src` directories (no this isn't out of date, I know `src/` is gone). The `CMakeLists.txt` file in `library/` propagates the targets up to the top-level `CMakeLists.txt`, and builds the project, so I can run tests and pat myself on the back.
+
+## Deeper Issues Revealed by CMake
+GCC really held my hand and told me, "Hey bud, it's okay! You don't really need to fix these architecture level problems you have here!" Previously, I had separated the Stack class definition and the member function definitions into different files, not realizing that I had just defeated the whole purpose of using templates to create an interface. That's because <b> templates aren't class definitions.</b> The compiler will create a family of classes or functions that the user of the interface wants to instantiate.
+
+I sat here scratching my head for the better half of the morning wondering what little trick I needed to do to just get it to do what I wanted, not realizing that if you refuse to create the template as an interface, you need to make a forward declaration for every valid type of template class the user can generate. That's a first year C++ mistake! I can't believe I forgot that! I moved to a header only implementation to rectify that. After figuring out some of the weird CMake syntax, I was able to identify the missing libraries and repeated definitions, and clean it up for a clean build.
+
+## More Takeaways
+How is the Stack, an elementary data structure that every CS student will study and implement in 6 different languages, still a good teaching tool for Modern C++ and Modern CMake? Don't answer that, I know, I should have studied harder. Maye I'll return to this again and learn another chunk of concepts. I think Sutter's book gave this challenge a 7/10 difficulty rating. At first, I thought it was a 5 since smart pointers simplified a lot. Now seeing my mistakes with CMake, I think 7 is fair. Turns out, the problem doesn't suddenly get simpler to understand with new fancy tools that make it simpler to implement.
+
 # Reading Resources
 - Exceptional C++: 47 Engineering Puzzles, Programming Problems, and Solutions (Herb Sutter)
 - Exception Handling: A False Sense of Security (Tom Cargill)
     - This article is actually a response to a 1993 article by David Reed, which you will find if you read this.
+- More Modern CMake (Deniz Bahadir, Meeting C++ 2018)
 
-Thank you to Dr. Ray Klefstad for recommending me the book by Herb Sutter!
+Thank you to Dr. Ray Klefstad for recommending me the book by Herb Sutter, setting me off on this weird path in the first place!
