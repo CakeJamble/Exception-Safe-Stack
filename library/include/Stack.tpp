@@ -1,3 +1,6 @@
+#ifndef STACK_TPP
+#define STACK_TPP
+
 #include "Stack.hpp"
 
 /**
@@ -150,3 +153,5 @@ void Stack<T>::Erase() {
         T _ = Pop();
     }
 }
+
+#endif // STACK_TPP

@@ -2,6 +2,8 @@
 #define STACK_HPP
 
 #include <memory>
+#include <stdexcept>
+#include <cassert>
 
 template <typename T> struct Node {
     T data;
@@ -34,5 +36,7 @@ private:
   size_t vsize_;                // enough for 'vsize_' T's
   size_t vused_;                // # of T's actually in use
 };
+
+#include "Stack.tpp"            // Template Implementation
 
 #endif // STACK_HPP

@@ -1,20 +1,19 @@
-cmake_minimum_required(3.11)
+cmake_minimum_required(VERSION 3.14)
 
-project(Stack)
+project(StackLibrary)
 
 # An OBJECT-library, used only to compile common sources once
-add_library(stack_ObjLib OBJECT 
-            DESCRIPTION "Internal Stack Library" )
-target_sources( stack_ObjLib
-    PRIVATE "src/Stack.cpp"
-    PUBLIC  "${CMAKE_CURRENT_SOURCE_DIR}/include/Stack.hpp"
+add_library(StackLibrary INTERFACE)     
+target_sources( StackLibrary
+    INTERFACE   "${CMAKE_CURRENT_SOURCE_DIR}/include/Stack.tpp"
+    INTERFACE   "${CMAKE_CURRENT_SOURCE_DIR}/include/Stack.hpp"
 )
 
 #Required include search-paths
-target_include_directories( stack_ObjLib
-    PUBLIC  "${CMAKE_CURRENT_SOURCE_DIR}/include"
+target_include_directories( StackLibrary
+    INTERFACE  "${CMAKE_CURRENT_SOURCE_DIR}/include"
 )
 
-target_compile_features(
-    PUBLIC  cxx_noexcept
+target_compile_features( StackLibrary
+    INTERFACE cxx_std_14
 )
