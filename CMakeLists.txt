@@ -16,6 +16,8 @@ FetchContent_MakeAvailable(googletest)
 
 enable_testing()
 
+add_subdirectory(library)
+
 add_executable(
   stack_test
   tests/StackTest.cc
@@ -23,6 +25,7 @@ add_executable(
 target_link_libraries(
   stack_test
   GTest::gtest_main
+  StackLibrary
 )
 
 include(GoogleTest)
